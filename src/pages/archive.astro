@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).filter(p => !p.data.draft)
+  .sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d) => d.toISOString().slice(0,10);
+---
+<BaseLayout title="Archive | 保持思考">
+  <h1 class="page-title">Archive</h1>
+  {posts.map(post => (
+    <div class="archive-row">
+      <span class="archive-date">{fmt(post.data.date)}</span>
+      <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+    </div>
+  ))}
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+const { title = '保持思考', description = '一个关于生活、技术与思考的个人博客' } = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+</head>
+<body>
+  <div class="shell">
+    <main class="main"><slot /></main>
+    <aside class="sidebar">
+      <div class="brand-row">
+        <div class="brand-cn">保持思考 —— 但要行动</div>
+        <div class="brand-en">personal blog</div>
+      </div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/archive">Archive</a>
+        <a href="/notes">Notes</a>
+        <a href="https://github.com/" target="_blank">GitHub ↗</a>
+        <div class="copyright">© 2026 My Blog<br/>Built with Astro</div>
+      </nav>
+    </aside>
+  </div>
+</body>
+</html>

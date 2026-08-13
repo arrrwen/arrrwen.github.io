@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d) => d.toISOString().slice(0,10);
+---
+<BaseLayout>
+  {posts.map((post) => (
+    <article class="post-card">
+      <a class="post-title" href={`/blog/${post.id}/`}>{post.data.title}</a>
+      <div class="post-date">Posted at {fmt(post.data.date)}</div>
+      <p class="post-excerpt">{post.data.description ?? '点击阅读全文……'}</p>
+    </article>
+  ))}
+</BaseLayout>
